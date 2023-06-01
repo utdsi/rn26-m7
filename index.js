@@ -9,6 +9,7 @@ require('dotenv').config()
 const {connection}  = require("./config/db.js")
 const {userRouter} = require("./route/user.route.js")
 const {resRouter} =  require("./route/res.route.js")
+const {auth} = require("./middleware/auth.js")
 
 app.get("/",(req,res)=>{
     res.send("welcome to food delivery app")
