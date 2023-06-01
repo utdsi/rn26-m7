@@ -40,11 +40,12 @@ resRouter.post("/api/restaurants/:id/menu", async (req, res) => {
     const menu = new MenuModel({name,description,price,image})
     await menu.save()
 
-    let resteraunt = await ResModel.find({_id:req.params.id})
+    let resteraunt = await ResModel.findOne({_id:req.params.id})
 
     resteraunt.menu.push(menu)
 
-    await ResModel.findByIdAndUpdate({_id:req.params.id},resteraunt)
+await ResModel.findByIdAndUpdate({_id:req.params.id},resteraunt)
+//console.log(resteraunt.menu)
 
     res.send("menu created success")
 
@@ -58,15 +59,16 @@ resRouter.delete("/api/restaurants/:id/menu/:menuid",async(req,res)=>{
 
     let menuid = req.params.menuid
 
-    let resteraunt = await ResModel.find({_id:id})
+    let resteraunt = await ResModel.findOne({_id:id})
 
-    
+   // console.log(resteraunt.menu)
+
 
     for(let i=0;i<resteraunt.menu.length;i++){
 
         if(resteraunt.menu[i]._id==menuid){
 
-            splice(i,1)
+            resteraunt.menu.splice(i,1)
 
         }
     }
@@ -87,13 +89,14 @@ resRouter.delete("/api/restaurants/:id/menu/:menuid",async(req,res)=>{
 })
 
 
-resRouter.post("addRes",async(req,res)=>{
+resRouter.post("/addRes",async(req,res)=>{
 
 
     const {name,address,menu}  = req.body
 
 
     let resteraunt = new ResModel({name,address,menu})
+    //console.log(resteraunt)
 
     await resteraunt.save()
 
