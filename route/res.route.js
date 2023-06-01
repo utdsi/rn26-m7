@@ -27,7 +27,7 @@ resRouter.get("/api/restaurants/:id", async (req, res) => {
 resRouter.get("/api/restaurants/:id/menu", async (req, res) => {
 
 
-    let resteraunt = await ResModel.find({ _id: req.params.id })
+    let resteraunt = await ResModel.findOne({ _id: req.params.id })
 
     res.send(resteraunt.menu)
 })
