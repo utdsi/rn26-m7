@@ -6,12 +6,13 @@ const app = express()
 app.use(express.json())
 require('dotenv').config()
 
-const {}  = require("./config/db.js")
-const { connection } = require("mongoose")
+const {connection}  = require("./config/db.js")
+const {userRouter} = require("./route/user.route.js")
 
 app.get("/",(req,res)=>{
     res.send("welcome to food delivery app")
 })
+app.use("/",userRouter)
 
 app.listen(process.env.port,async()=>{
 
